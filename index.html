@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            border: 1px solid palevioletred;
+            width: 900px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            margin-left: 10px;
+            width: 100px;
+            height: 40px;
+            position: relative;
+            top: -9px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bolder;
+        }
+
+        button:hover {
+            background-color: rgb(0, 0, 0);
+            color: rgb(38, 207, 8);
+            transform: translate(1.5);
+            animation: shake 0.5s;
+            animation-iteration-count: infinite;
+        }
+
+        img:hover {
+            animation: shake 0.5s;
+            animation-iteration-count: infinite;
+        }
+
+        label,
+        .result1,
+        .result {
+            font-size: 60px;
+        }
+
+        .img-1 {
+            width: 200px;
+            height: 200px;
+            margin-top: 10px;
+            background-repeat: no-repeat;
+            background-position: top;
+            background-size: cover;
+            align-items: center;
+            justify-content: center;
+            animation: imgChange 0.9s;
+            animation-iteration-count: infinite;
+
+        }
+
+        @keyframes imgChange {
+            0% {
+                background-image: url(./img/scissor.png);
+            }
+
+            20% {
+                background-image: url(./img/rock.png);
+            }
+
+            40% {
+                background-image: url(./img/paper.png);
+            }
+
+            60% {
+                background-image: url(./img/scissors.png);
+            }
+
+            80% {
+                background-image: url(./img/rock.png);
+            }
+
+            100% {
+                background-image: url(./img/scissors.png);
+            }
+
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translate(1px, 1px) rotate(0deg);
+            }
+
+            10% {
+                transform: translate(-1px, -2px) rotate(-1deg);
+            }
+
+            20% {
+                transform: translate(-3px, 0px) rotate(1deg);
+            }
+
+            30% {
+                transform: translate(3px, 2px) rotate(0deg);
+            }
+
+            40% {
+                transform: translate(1px, -1px) rotate(1deg);
+            }
+
+            50% {
+                transform: translate(-1px, 2px) rotate(-1deg);
+            }
+
+            60% {
+                transform: translate(-3px, 1px) rotate(0deg);
+            }
+
+            70% {
+                transform: translate(3px, 1px) rotate(-1deg);
+            }
+
+            80% {
+                transform: translate(-1px, -1px) rotate(1deg);
+            }
+
+            90% {
+                transform: translate(1px, 2px) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(1px, -2px) rotate(-1deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <label for="yourchoice">您:</label>
+            <button class="scissors">剪刀</button>
+            <button class="rock">石頭</button>
+            <button class="paper">布</button>
+        </div>
+        <br></br>
+        <div class="img img-1"></div>
+        <br></br>
+        <div class="result1">結果: <span class="result"></span></div>
+    </div>
+
+    <script>
+        let scissorsBtn = document.querySelector('.scissors');
+        let rockBtn = document.querySelector('.rock');
+        let paperBtn = document.querySelector('.paper');
+
+        let result = document.querySelector('.result');
+        let img1 = document.querySelector('.img-1');
+        let container = document.querySelector('.container');
+
+        game();
+
+        function game() {
+            scissorsBtn.addEventListener('click', () => {
+                // button.style.backgroundColor = 'none';
+                // button.style.color = 'black';
+                BtnReset();
+                scissorsBtn.style.backgroundColor = 'black';
+                scissorsBtn.style.color = 'green';
+                img1.style.animation = 'none';
+                img1.style.backgroundImage = `url(./img/scissors.png)`;
+                let com = Math.floor(Math.random() * 3) + 1;
+                if (com === 1) {
+                    result.textContent = '電腦出剪刀，平手';
+                } else if (com === 2) {
+                    result.textContent = '電腦出石頭，你輸';
+                } else {
+                    result.textContent = '電腦出布，你贏';
+                }
+            });
+
+            rockBtn.addEventListener('click', () => {
+                BtnReset();
+                rockBtn.style.backgroundColor = 'black';
+                rockBtn.style.color = 'green';
+                img1.style.animation = 'none';
+                img1.style.backgroundImage = `url(./img/rock.png)`;
+                let com = Math.floor(Math.random() * 3) + 1;
+                if (com === 1) {
+                    result.textContent = '電腦出剪刀，你贏';
+                } else if (com === 2) {
+                    result.textContent = '電腦出石頭，平手';
+                } else {
+                    result.textContent = '電腦出布，你輸';
+                }
+            });
+
+            paperBtn.addEventListener('click', () => {
+                BtnReset();
+                paperBtn.style.backgroundColor = 'black';
+                paperBtn.style.color = 'green';
+                img1.style.animation = 'none';
+                img1.style.backgroundImage = `url(./img/paper.png)`;
+                let com = Math.floor(Math.random() * 3) + 1;
+                if (com === 1) {
+                    result.textContent = '電腦出剪刀，你輸';
+                } else if (com === 2) {
+                    result.textContent = '電腦出石頭，你贏';
+                } else {
+                    result.textContent = '電腦出布，平手';
+                }
+            });
+        }
+        document.addEventListener('click', () => {
+            if (!container.contains(event.target)) {
+                resetGame();
+            }
+        });
+
+        function BtnReset() {
+            scissorsBtn.style.backgroundColor = '';
+            scissorsBtn.style.color = '';
+            rockBtn.style.backgroundColor = '';
+            rockBtn.style.color = '';
+            paperBtn.style.backgroundColor = '';
+            paperBtn.style.color = '';
+        }
+
+        function resetGame() {
+            scissorsBtn.style.backgroundColor = '';
+            scissorsBtn.style.color = '';
+            rockBtn.style.backgroundColor = '';
+            rockBtn.style.color = '';
+            paperBtn.style.backgroundColor = '';
+            paperBtn.style.color = '';
+            img1.style.animation = '';
+            result.textContent = '';
+        }
+    </script>
+</body>
+
+</html>
